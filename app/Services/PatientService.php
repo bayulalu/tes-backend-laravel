@@ -48,4 +48,9 @@ class PatientService
         $patient->delete();
         User::where('id', $userId)->delete();
     }
+
+    public function detail($id)
+    {
+        return Patient::with('user')->findOrFail($id);
+    }
 }
