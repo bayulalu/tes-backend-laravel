@@ -20,6 +20,7 @@ Route::get('/', function () {
     ];
 });
 
+Route::get('/patient', [PatientController::class, 'index']);
 Route::post('/patient', [PatientController::class, 'store']);
 Route::put('/patient/{patientId}', [PatientController::class, 'update']);
 Route::delete('/patient/{patientId}', [PatientController::class, 'delete']);
