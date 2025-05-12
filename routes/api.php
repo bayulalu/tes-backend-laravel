@@ -20,8 +20,10 @@ Route::get('/', function () {
     ];
 });
 
-Route::post('/patient', [PatientController::class, 'store']);
-Route::put('/patient/{patientId}', [PatientController::class, 'update']);
-Route::delete('/patient/{patientId}', [PatientController::class, 'delete']);
-Route::get('/patient', [PatientController::class, 'index']);
-Route::get('/patient/{patientId}', [PatientController::class, 'detail']);
+Route::prefix('patient')->middleware('auth.access_key')->group(function () {
+    Route::post('/', [PatientController::class, 'store']);
+    Route::put('/{patientId}', [PatientController::class, 'update']);
+    Route::delete('/{patientId}', [PatientController::class, 'delete']);
+    Route::get('/', [PatientController::class, 'index']);
+    Route::get('/{patientId}', [PatientController::class, 'detail']);
+});
