@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Patient extends Model
 {
-    use HasUuids;
+  use HasUuids;
 
-    protected $fillable = [
-        'user_id',
-        'medium_acquisition'
-    ];
+  protected $fillable = [
+    'user_id',
+    'medium_acquisition'
+  ];
+
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
 }

@@ -26,4 +26,37 @@ class PatientController extends Controller
             return Response::statusError($th->getMessage());
         }
     }
+
+    public function update(PatientRequest $request, $idPatient)
+    {
+        $input = $request->all();
+        try {
+            DB::beginTransaction();
+            $patientService = new PatientService();
+            $patientService->update($input, $idPatient);
+
+            DB::commit();
+            return Response::statusOk(__('messages.update'));
+        } catch (\Throwable $th) {
+            Log::error($th);
+            DB::rollback();
+            return Response::statusError($th->getMessage());
+        }
+    }
+
+    public function delete($idPatient)
+    {
+        try {
+            DB::beginTransaction();
+            $patientService = new PatientService();
+            $patientService->delete($idPatient);
+
+            DB::commit();
+            return Response::statusOk(__('messages.delete'));
+        } catch (\Throwable $th) {
+            Log::error($th);
+            DB::rollback();
+            return Response::statusError($th->getMessage());
+        }
+    }
 }
